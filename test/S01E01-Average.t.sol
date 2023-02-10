@@ -3,24 +3,48 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 
+import {HuffDeployer} from "foundry-huff/HuffDeployer.sol";
+
 import "src/S01E01-Average.sol";
+
+contract ExternalHuffDeployer {
+    address public deployAddr;
+
+    function deploy(string memory fileName) external returns (address) {
+        deployAddr = HuffDeployer.deploy(fileName);
+        return deployAddr;
+    }
+}
 
 contract AverageTest is Test {
     IAverage internal average;
 
-    function setUp() public {
+    function deploy() internal returns (address addr) {
+        // first: get the bytecode from the environment if it exists
         bytes memory empty = new bytes(0);
         bytes memory bytecode = vm.envOr("BYTECODE", empty);
 
         if (bytecode.length > 0) {
-            address addr;
             assembly {
                 addr := create(0, add(bytecode, 0x20), mload(bytecode))
             }
-            average = IAverage(addr);
-        } else {
-            average = new Average();
+            return addr;
         }
+
+        // second: get the bytecode from the HuffDeployer if it exists
+        ExternalHuffDeployer huff = new ExternalHuffDeployer();
+        try huff.deploy("S01E01-Average") {
+            return huff.deployAddr();
+        } catch {
+            console2.log("HuffDeployer.deploy failed");
+        }
+
+        // third: get the bytecode from .sol file
+        return address(new Average());
+    }
+
+    function setUp() public {
+        average = IAverage(deploy());
     }
 
     function test_s01e01_sanity() public {
