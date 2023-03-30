@@ -1,0 +1,11 @@
+[[levels]]
+fileName = "S01E01-Average"
+contract = "Average"
+testContract = "AverageTest"
+description = "Lorem ipsum dolor dolor sit amet"
+
+[[levels]]
+fileName = "S01E02-Test"
+contract = "Test"
+testContract = "TestTest"
+description = "Lorem ipsum dolor dolor sit amet"
