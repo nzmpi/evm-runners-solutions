@@ -2,6 +2,7 @@
 id = "1"
 file = "S01E01-Average"
 name = "Average"
+author = "@0xkarmacoma"
 description = """* Write a function to find the average of two unsigned integers.
   * average(1,1) == 1
   * average(1,2) == 1
@@ -13,6 +14,7 @@ description = """* Write a function to find the average of two unsigned integers
 id = "2"
 file = "S01E02-Fibonacci"
 name = "Fibonacci"
+author = "@beskay0x"
 description = """* Calculate the n-th Fibonacci number.
   * fibonacci(0) == 0
   * fibonacci(1) == 1
