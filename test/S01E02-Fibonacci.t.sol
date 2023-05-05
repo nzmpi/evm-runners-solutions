@@ -29,23 +29,26 @@ contract FibonacciTestBase is Test {
         assertEq(fibonacci.fibonacci(0), 0);
         assertEq(fibonacci.fibonacci(1), 1);
         assertEq(fibonacci.fibonacci(5), 5);
-        assertEq(fibonacci.fibonacci(20), 6765);  
+        assertEq(fibonacci.fibonacci(20), 6765);
     }
 
-    function test_s01e01_fuzz(uint256 n) public {
-        n = bound(n, 0, 370);
+    function test_s01e02_fuzz(uint256 n) public {
+        n = bound(n, 0, 100_000);
+
         assertEq(_fibonacci(n), fibonacci.fibonacci(n));
     }
 
-    function test_s01e01_gas(uint256 n) public view {
-        n = bound(n, 0, 370);
+    function test_s01e02_gas(uint256 n) public view {
+        n = bound(n, 0, 100_000);
+
         fibonacci.fibonacci(n);
     }
 
-    function test_s01e01_size() public view {
+    function test_s01e02_size() public view {
         console2.log("Contract size:", address(fibonacci).code.length);
     }
 
+    // simple fibonacci implementation using a for loop
     function _fibonacci(uint256 n) internal pure returns (uint256) {
         if (n == 0) {
             return 0;
@@ -57,7 +60,7 @@ contract FibonacciTestBase is Test {
             uint256 c;
 
             for (uint256 i = 2; i <= n; i++) {
-                c = a + b;
+                c = addmod(a, b, type(uint256).max);
                 a = b;
                 b = c;
             }
