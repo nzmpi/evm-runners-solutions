@@ -7,7 +7,7 @@ contract Average is IAverage {
     /// @dev Returns the average of two numbers.
     /// @param a The first number.
     /// @param b The second number.
-    function average(uint256 a, uint256 b) public pure override returns (uint256) {
+    function average(uint256 a, uint256 b) public pure returns (uint256) {
         return 0;
     }
 }
