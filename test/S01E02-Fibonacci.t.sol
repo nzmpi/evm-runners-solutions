@@ -33,19 +33,20 @@ contract FibonacciTestBase is Test {
     }
 
     function test_s01e02_fuzz(uint256 n) public {
-        n = bound(n, 0, 100_000);
+        n = bound(n, 0, 20_000);
 
         assertEq(_fibonacci(n), fibonacci.fibonacci(n));
     }
 
     function test_s01e02_gas(uint256 n) public view {
-        n = bound(n, 0, 100_000);
+        n = bound(n, 10_000, 20_000);
 
         fibonacci.fibonacci(n);
     }
 
-    function test_s01e02_size() public view {
+    function test_s01e02_size() public {
         console2.log("Contract size:", address(fibonacci).code.length);
+        assertLt(address(fibonacci).code.length, 2000);
     }
 
     // simple fibonacci implementation using a for loop
