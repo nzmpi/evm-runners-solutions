@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "test/S01E02-Fibonacci.t.sol";
+import "test/S01E03-Fibonacci.t.sol";
 
 import {HuffDeployer} from "foundry-huff/HuffDeployer.sol";
 
@@ -14,10 +14,10 @@ contract ExternalHuffDeployer {
     }
 }
 
-contract AverageTestHuff is FibonacciTestBase {
+contract FibonacciTestHuff is FibonacciTestBase {
     function deploy() internal override returns (address addr) {
         ExternalHuffDeployer huff = new ExternalHuffDeployer();
-        try huff.deploy("S01E02-Fibonacci") {
+        try huff.deploy("S01E03-Fibonacci") {
             return huff.deployAddr();
         } catch {
             console2.log("HuffDeployer.deploy failed");

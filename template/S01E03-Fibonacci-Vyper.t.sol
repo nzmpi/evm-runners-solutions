@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "test/S01E02-Fibonacci.t.sol";
+import "test/S01E03-Fibonacci.t.sol";
 
 contract FibonacciTestVyper is FibonacciTestBase {
     function deploy() internal override returns (address addr) {
@@ -10,7 +10,7 @@ contract FibonacciTestVyper is FibonacciTestBase {
         // The Vyper keyword to compile a contract
         deployCommand[0] = "vyper";
         // The path to the Vyper contract file starting from the project root directory
-        deployCommand[1] = "src/S01E02-Fibonacci.vy";
+        deployCommand[1] = "src/S01E03-Fibonacci.vy";
 
         // A local variable to hold the output bytecode
         bytes memory compiledByteCode = vm.ffi(deployCommand);

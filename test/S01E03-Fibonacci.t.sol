@@ -25,28 +25,28 @@ contract FibonacciTestBase is Test {
         fibonacci = IFibonacci(deploy());
     }
 
-    function test_s01e02_sanity() public {
+    function test_s01e03_sanity() public {
         assertEq(fibonacci.fibonacci(0), 0);
         assertEq(fibonacci.fibonacci(1), 1);
         assertEq(fibonacci.fibonacci(5), 5);
         assertEq(fibonacci.fibonacci(20), 6765);
     }
 
-    function test_s01e02_fuzz(uint256 n) public {
+    function test_s01e03_fuzz(uint256 n) public {
         n = bound(n, 0, 20_000);
 
         assertEq(_fibonacci(n), fibonacci.fibonacci(n));
     }
 
-    function test_s01e02_gas(uint256 n) public view {
-        n = bound(n, 10_000, 20_000);
+    function test_s01e03_gas(uint256 n) public view {
+        n = bound(n, 10_000, 12_000);
 
         fibonacci.fibonacci(n);
     }
 
-    function test_s01e02_size() public {
+    function test_s01e03_size() public {
         console2.log("Contract size:", address(fibonacci).code.length);
-        assertLt(address(fibonacci).code.length, 2000);
+        assertLt(address(fibonacci).code.length, 1000, "!codesize");
     }
 
     // simple fibonacci implementation using a for loop
@@ -70,3 +70,4 @@ contract FibonacciTestBase is Test {
         }
     }
 }
+
