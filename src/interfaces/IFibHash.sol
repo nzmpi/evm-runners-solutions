@@ -2,5 +2,5 @@
 pragma solidity ^0.8.13;
 
 interface IFibHash {
-    function fibhash(uint64 x, uint64 k) external pure returns (uint64);
+    function fibhash(uint256 x, uint8 k) external pure returns (uint64);
 }

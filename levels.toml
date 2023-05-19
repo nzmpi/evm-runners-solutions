@@ -5,6 +5,7 @@ contract = "Average"
 type = "unsigned math"
 description = """ /**
   * Write a function to find the average of two unsigned integers.
+  * More info: https://devblogs.microsoft.com/oldnewthing/20220207-00/?p=106223
   *
   * average(1,1) == 1
   * average(1,2) == 1
@@ -19,10 +20,11 @@ file = "S01E02-FibHash"
 contract = "FibHash"
 type = "hashing"
 description = """ /**
-  * Write a fibonacci hash function with inputs x and k,
-  * where x is the 64-bit number to be hashed 
-  * and 2^k is the resulting size of the hash table
-  * 
+  * Write a fibonacci hash function with inputs x and k, where x is the 256-bit
+  * number to be hashed and 2^k is the resulting size of the hash table
+  * More info: https://bit.ly/fibonacci-hashing
+  * See also: https://bit.ly/multiplication-hashing
+  *
   * fibhash(0, 3) == 0
   * fibhash(5, 6) == 5
   * fibhash(12345, 10) == 644
@@ -38,12 +40,11 @@ contract = "Fibonacci"
 type = "loops"
 description = """ /**
   * Calculate the n-th Fibonacci number.
+  * Note: Use the modulo operator to prevent the result from overflowing.  
   *
   * fibonacci(0) == 0
   * fibonacci(1) == 1
   * fibonacci(5) == 5
   * fibonacci(20) == 6765
-  *
-  * Note: Use the modulo operator to prevent the result from overflowing.
   */
 """
