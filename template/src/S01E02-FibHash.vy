@@ -1,5 +1,5 @@
 # @dev: SPDX-License-Identifier: UNLICENSED
 
 @external
-def fibhash(x: uint64, k: uint64) -> uint64:
+def fibhash(x: uint256, k: uint8) -> uint256:
     return 0
