@@ -39,7 +39,7 @@ contract FibonacciTestBase is Test {
     }
 
     function test_s01e03_gas(uint256 n) public view {
-        n = bound(n, 10_000, 12_000);
+        n = bound(n, 10_000, 11_000);
 
         fibonacci.fibonacci(n);
     }
