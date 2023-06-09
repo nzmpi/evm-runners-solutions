@@ -21,11 +21,11 @@ The PR should include
 1. An interface file in `src/interfaces/`
 2. A template file for Solidity, Vyper and Huff in `templates/src/`
 3. A base test file in `test/`
-4. Language specific test files in `templates/` (Solidity, Vyper, Huff)
+4. Language specific test files in `templates/test/` (Solidity, Vyper, Huff)
 
 The base test file includes the actual tests and accepts a bytecode env variable as input. The language specific test files inherit from the base test and override the deploy function. The CLI will always run the base test file, the language specific test files only exist to give the user the option to run the tests himself with `forge test`.
 
-When adding a new level make sure to follow the naming convention below and place the files in the correct directories. `evm-runners start` will later copy the example template file from `template/src/<level>` to `src/<level>` and the corresponding test file from `template/<level-lang>` to `test`.
+When adding a new level make sure to follow the naming convention below and place the files in the correct directories. `evm-runners start` will later copy the example template file from `template/src/<level>` to `src/<level>` and the corresponding test file from `template/test/<level>` to `test`.
 
 ### Naming convention
 
