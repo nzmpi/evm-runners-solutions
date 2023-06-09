@@ -70,4 +70,3 @@ contract FibonacciTestBase is Test {
         }
     }
 }
-

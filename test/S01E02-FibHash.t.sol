@@ -41,17 +41,17 @@ contract FibHashTestBase is Test {
 
     function test_s01e02_gas(uint256 x, uint8 k) public view {
         vm.assume(k != 0);
-        
+
         fibhash.fibhash(x, k);
     }
 
     function test_s01e02_size() public {
         console2.log("Contract size:", address(fibhash).code.length);
-    } 
+    }
 
     function _fibhash(uint256 x, uint8 k) internal pure returns (uint256) {
         uint256 a = 71563446777022297856526126342750658392501306254664949883333486863006233104021;
-        
+
         uint256 product;
         unchecked {
             product = (x * a);
@@ -60,4 +60,3 @@ contract FibHashTestBase is Test {
         return product >> (256 - k);
     }
 }
-
