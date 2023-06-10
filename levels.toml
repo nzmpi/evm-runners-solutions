@@ -29,6 +29,8 @@ description = """ /**
   * fibhash(5, 6) == 5
   * fibhash(12345, 10) == 644
   * fibhash(1000_000, 10) == 1012
+  *
+  * See function _fibhash in the base test contract for an example implementation
   */
 """
 
@@ -37,7 +39,7 @@ description = """ /**
 id = "3"
 file = "S01E03-Fibonacci"
 contract = "Fibonacci"
-type = "loops"
+type = "loops/math"
 description = """ /**
   * Calculate the n-th Fibonacci number.
   * Note: Use the modulo operator to prevent the result from overflowing.  
@@ -46,5 +48,20 @@ description = """ /**
   * fibonacci(1) == 1
   * fibonacci(5) == 5
   * fibonacci(20) == 6765
+  */
+"""
+
+[[levels]]
+id = "4"
+file = "S01E04-Prime"
+contract = "Prime"
+type = "loops/math"
+description = """ /**
+  * Check if a given input number is prime
+  *
+  * isPrime(0) == false
+  * isPrime(2) == true
+  * isPrime(4) == false
+  * isPrime(7) == true
   */
 """
