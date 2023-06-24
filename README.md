@@ -14,28 +14,28 @@ Feel free to contribute! In case you want to add a new level, keep the following
 
 1. evm-runners should be a gradual introduction to the EVM, so introduce one concept at a time
 2. The challenge should make sense and be useful in some context
-3. Not a CTF: There should be several ways to solve the challenge. The task is to find the most efficient solution (gas or codesize)
+3. Not a CTF: There should be several ways to solve the challenge. The task is to find the most efficient solution (regarding gas or codesize)
 
 The PR should include
 
 1. An interface file in `src/interfaces/`
-2. A template file for Solidity, Vyper and Huff in `templates/src/`
-3. A base test file in `test/`
-4. Language specific test files in `templates/test/` (Solidity, Vyper, Huff)
+2. A template file for Solidity, Vyper and Huff in `templates/`
+3. A test file in `test/`
 
-The base test file includes the actual tests and accepts a bytecode env variable as input. The language specific test files inherit from the base test and override the deploy function. The CLI will always run the base test file, the language specific test files only exist to give the user the option to run the tests himself with `forge test`.
+The test file consists of the base test (which includes the actual tests and accepts a bytecode env variable as input) and the language specific test contracts, which inherit from the base test and override the deploy function. The CLI will always run the base test file, the language specific test contracts only exist to give the user the option to run the tests with `forge test`.
 
-When adding a new level make sure to follow the naming convention below and place the files in the correct directories. `evm-runners start` will later copy the example template file from `template/src/<level>` to `src/<level>` and the corresponding test file from `template/test/<level>` to `test`.
+When adding a new level make sure to follow the naming convention below and place the files in the correct directories. `evm-runners start` will later copy the example template file from `template/<level>` to `src/<level>`.
 
 ### Naming convention
 
-The name of the test contract is composed of
+The test contracts are named in the following way:
 
-1. The level name, e.g. `Average`
-2. "Test"
-3. The type, e.g. "Base" for the "Base" test, "Sol" for Solidity, "Huff" for Huff, "Vyper" for Vyper.
+1. Base test: `<Level>TestBase`
+2. Solidity test: `<Level>TestSol`
+3. Vyper test: `<Level>TestVyper`
+4. Huff test: `<Level>TestHuff`
 
-So for level `Average`, the test files are called `AverageTestBase`, `AverageTestHuff`, `AverageTestSol`, `AverageTestVyper`.
+e.g. the test contracts for level `Average` are named `AverageTestBase`, `AverageTestSol`, `AverageTestVyper`, `AverageTestHuff`.
 
 The filename of the template src file is composed of
 
@@ -47,7 +47,7 @@ e.g. `S01E03-Fibonacci.sol`
 
 ### levels.toml
 
-Add your level to the levels.toml file. This is needed for the CLI to work. See the example below.
+Add your level info to the levels.toml file. See the example below.
 
 ```toml
 [[levels]]
@@ -66,3 +66,9 @@ description = """ /**
   */
 """
 ```
+
+- `id` is the ID of the level, e.g. 3 for S01E03
+- `file` is the filename of the template file
+- `contract` is the name of the contract (i.e. the level name)
+- `type` is the type of the challenge, e.g. loops, math, etc.
+- `description` is the description of the challenge
