@@ -4,7 +4,7 @@ out = 'out'
 libs = ['lib']
 
 ffi = true
-ignored_error_codes = [ "unused-param" ]
+ignored_error_codes = [ "unused-param", "shadowing", "license" ]
 
 # Whether to append the metadata hash to the bytecode
 cbor_metadata = false
