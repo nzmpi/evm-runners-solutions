@@ -1,8 +1,8 @@
 # evm-runners-levels
 
-Challenges for evm-runners.
+Levels for evm-runners.
 
-## Challenges
+## Levels
 
 1. Average
 2. Fibonacci Hash
@@ -13,8 +13,8 @@ Challenges for evm-runners.
 Feel free to contribute! In case you want to add a new level, keep the following in mind:
 
 1. evm-runners should be a gradual introduction to the EVM, so introduce one concept at a time
-2. The challenge should make sense and be useful in some context
-3. Not a CTF: There should be several ways to solve the challenge. The task is to find the most efficient solution (regarding gas or codesize)
+2. The level should make sense and be useful in some context
+3. Not a CTF: There should be several ways to solve the level. The task is to find the most efficient solution (regarding gas or codesize)
 
 The PR should include
 
@@ -39,15 +39,15 @@ e.g. the test contracts for level `Average` are named `AverageTestBase`, `Averag
 
 The filename of the template src file is composed of
 
-1. The identifier, e.g. S01E01 or S01E02
+1. The identifier, e.g. `S01E01` or `S01E02`
 2. Dash
-3. The level name
+3. The name of the level
 
 e.g. `S01E03-Fibonacci.sol`
 
 ### levels.toml
 
-Add your level info to the levels.toml file. See the example below.
+Add your level info to the `levels.toml` file. See the example below.
 
 ```toml
 [[levels]]
@@ -70,5 +70,5 @@ description = """ /**
 - `id` is the ID of the level, e.g. 3 for S01E03
 - `file` is the filename of the template file
 - `contract` is the name of the contract (i.e. the level name)
-- `type` is the type of the challenge, e.g. loops, math, etc.
-- `description` is the description of the challenge
+- `type` is the type of the level, e.g. loops, math, etc.
+- `description` is the description of the level
