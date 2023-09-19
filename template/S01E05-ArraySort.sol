@@ -4,7 +4,7 @@ pragma solidity 0.8.16;
 import "src/interfaces/IArraySort.sol";
 
 contract ArraySort is IArraySort {
-    /// @dev Returns the input array sorted in ascending order
+    /// @notice Returns the input array sorted in ascending order
     /// @param arr The array to be sorted
     function arraySort(uint256[] memory arr) public pure returns (uint256[] memory) {
         return arr;

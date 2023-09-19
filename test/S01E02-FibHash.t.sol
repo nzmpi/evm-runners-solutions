@@ -51,8 +51,7 @@ contract FibHashTestBase is Test {
 
     function _fibhash(uint256 x, uint8 k) internal pure returns (uint256) {
         // a is the fibonacci constant for 256-bit numbers
-        // how is a calculated? -> floor(2^bits / phi), where phi is the golden ratio (1.618...)
-        // we use the floor function to make sure the result is an integer
+        // a = floor(2^bits / phi), where phi = (1 + sqrt(5))/2 = 1.618033 ... (golden ratio)
         uint256 a = 71563446777022297856526126342750658392501306254664949883333486863006233104021;
 
         uint256 product;
