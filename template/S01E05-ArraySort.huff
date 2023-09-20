@@ -1,5 +1,5 @@
 #define macro MAIN() = takes(0) returns(0) {
-    0x24 calldataload     // [arrLength] // load first 32 bytes onto the stack - arrayLength
+    0x24 calldataload     // [arrLength]
 
     0x00 mstore           // place result in memory
     0x20 0x00 return      // return the result
