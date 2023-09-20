@@ -4,9 +4,11 @@ Levels for evm-runners.
 
 ## Levels
 
-1. Average
-2. Fibonacci Hash
-3. Fibonacci
+1. average
+2. fibhash
+3. fibonacci
+4. prime
+5. arraysort
 
 ## Contributing
 
@@ -51,23 +53,21 @@ Add your level info to the `levels.toml` file. See the example below.
 
 ```toml
 [[levels]]
-id = "3"
-file = "S01E03-Fibonacci"
-contract = "Fibonacci"
-type = "loops"
-description = """ /**
-  * Calculate the n-th Fibonacci number.
-  * Note: Use the modulo operator to prevent the result from overflowing.
-  *
-  * fibonacci(0) == 0
-  * fibonacci(1) == 1
-  * fibonacci(5) == 5
-  * fibonacci(20) == 6765
-  */
-"""
+id = "1"
+file = "S01E01-Average"
+contract = "Average"
+type = "unsigned math"
+description = """
+  Write a function to find the average of two unsigned integers.
+  Further reading: https://bit.ly/4842Lrq
+
+  average(1,1) == 1
+  average(1,2) == 1
+  average(2,1) == 1
+  average(0,4) == 2"""
 ```
 
-- `id` is the ID of the level, e.g. 3 for S01E03
+- `id` is the ID of the level, e.g. 3 for S01E01
 - `file` is the filename of the template file
 - `contract` is the name of the contract (i.e. the level name)
 - `type` is the type of the level, e.g. loops, math, etc.
