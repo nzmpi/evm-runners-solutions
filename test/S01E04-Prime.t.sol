@@ -30,21 +30,23 @@ contract PrimeTestBase is Test {
         assertEq(prime.isPrime(1), false);
         assertEq(prime.isPrime(4), false);
         assertEq(prime.isPrime(7), true);
+        assertEq(prime.isPrime(281), true);
+        assertEq(prime.isPrime(48991), true);
     }
 
     function test_s01e04_fuzz(uint256 n) public {
-        vm.assume(n < 1000_000);
+        vm.assume(n < 100_000);
         assertEq(_isPrime(n), prime.isPrime(n));
     }
 
     function test_s01e04_gas(uint256 n) public view {
-        vm.assume(n < 1000_000);
+        vm.assume(n < 100_000);
         prime.isPrime(n);
     }
 
     function test_s01e04_size() public {
         console2.log("Contract size:", address(prime).code.length);
-        assertLt(address(prime).code.length, 10000, "!codesize");
+        assertLt(address(prime).code.length, 1000, "!codesize");
     }
 
     // checks if a number is prime
