@@ -1,14 +1,34 @@
 # evm-runners-levels
 
-Levels for evm-runners.
+Foundry repository for evm-runners.
 
-## Levels
+## Implemented levels
 
-1. average
-2. fibhash
-3. fibonacci
-4. prime
-5. arraysort
+1. Average
+2. Fibonacci Hash
+3. Fibonacci
+4. Prime
+5. ArraySort
+
+## Usage
+
+### Getting started
+
+To install the levels with the evm-runners cli, run
+
+```bash
+evmr init
+```
+
+To begin solving a level, run `evmr start` and select the level you want to solve. To validate your solution, run `evmr validate <level>`.
+
+**Alternatively**
+
+You can also install the levels manually by cloning this repository and copying the level template you want to solve from `template/` to `src/`. Then run `forge test` to run the tests.
+
+### Submitting a solution
+
+You can submit a solution with `evmr submit <level>`, or alternatively by submitting the solution bytecode on the [evm-runners website](https://evmr.sh/submit).
 
 ## Contributing
 
