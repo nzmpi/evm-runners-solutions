@@ -81,7 +81,7 @@ contract FibHashTestSol is FibHashTestBase {
         // A local variable to hold the output bytecode
         bytes memory compiledByteCode = vm.ffi(deployCommand);
 
-        // A local variable to hold the address of the deployed Vyper contract
+        // A local variable to hold the address of the deployed Solidity contract
         address deployAddr;
 
         // Inline assembly code to deploy a contract using bytecode
@@ -125,24 +125,27 @@ contract FibHashTestVyper is FibHashTestBase {
 /*                            HUFF                            */
 /*.•°:°.´+˚.*°.˚:*.´•*.+°.•°:´*.´•*.•°.•°:°.´:•˚°.*°.˚:*.´+°.•*/
 
-import {HuffDeployer} from "foundry-huff/HuffDeployer.sol";
-
-contract ExternalHuffDeployer {
-    address public deployAddr;
-
-    function deploy(string memory fileName) external returns (address) {
-        deployAddr = HuffDeployer.deploy(fileName);
-        return deployAddr;
-    }
-}
-
 contract FibHashTestHuff is FibHashTestBase {
     function deploy() internal override returns (address addr) {
-        ExternalHuffDeployer huff = new ExternalHuffDeployer();
-        try huff.deploy("S01E02-Fibonacci") {
-            return huff.deployAddr();
-        } catch {
-            console2.log("HuffDeployer.deploy failed");
+        // The string array input variable used by ffi
+        string[] memory deployCommand = new string[](3);
+        // The Huff keyword to compile a contract
+        deployCommand[0] = "huffc";
+        // The path to the Huff contract file starting from the project root directory
+        deployCommand[1] = "src/S01E02-FibHash.huff";
+        deployCommand[2] = "--bytecode";
+
+        // A local variable to hold the output bytecode
+        bytes memory compiledByteCode = vm.ffi(deployCommand);
+
+        // A local variable to hold the address of the deployed Huff contract
+        address deployAddr;
+
+        // Inline assembly code to deploy a contract using bytecode
+        assembly {
+            deployAddr := create(0, add(compiledByteCode, 0x20), mload(compiledByteCode))
         }
+
+        return deployAddr;
     }
 }
