@@ -18,17 +18,14 @@ file = "S01E02-FibHash"
 contract = "FibHash"
 type = "hashing"
 description = """
-  Fibonacci hashing is a fast alternative to integer modulo for 
-  hash tables. It utilizes the golden ratio (1.6180339...) and 
-  its relationship with Fibonacci numbers to improve hash table 
-  efficiency. Implement function `fibhash(x, k)`, where x is the
-  256-bit input number and 2^k is the size of the hash table:  
+  Implement the Fibonacci hash algorithm by multiplying the 256-bit input
+  number 'x' with a constant 'a' derived from the golden ratio, where 
+  a = 2^(256)/((1 + sqrt(5))/2). See '_fibhash' in S01E02-FibHash.t.sol 
+  for an example implementation and https://bit.ly/fibhash for more info.
   
   fibhash(x, k) == hash
   fibhash(5, 6) == 5
-  fibhash(12345, 10) == 644
-
-  More info: https://bit.ly/fibonacci-hashing"""
+  fibhash(12345, 10) == 644"""
 
 
 [[levels]]
@@ -63,7 +60,7 @@ file = "S01E05-ArraySort"
 contract = "ArraySort"
 type = "sorting"
 description = """
-  Given an array of uint256, sort the array in ascending order
-  and return it. The maximum length of the input array is 32.
+  Given an array of uint256, sort the array in ascending order.
+  The maximum length of the input array is 32.
    
   arraySort([9, 7, 8, 3, 1]) == [1, 3, 7, 8, 9]"""
