@@ -15,7 +15,4 @@ gas_limit = 30000000
 
 evm_version = "shanghai"
 
-[fuzz]
-runs = 512
-
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
