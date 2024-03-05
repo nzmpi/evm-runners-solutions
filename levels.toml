@@ -74,3 +74,18 @@ description = """
   Write a function/contract that consumes an exact amount of gas each
   time it's called. Check the logs to track your gas usage.
   The contract with the smallest code size wins."""
+
+[[levels]]
+id = "7"
+file = "S01E07-Decompress"
+contract = "Decompress"
+type = "compression"
+description = """
+  Implement function 'decompress(bytes memory compressed)' that receives
+  run-length encoded data and returns the original, uncompressed data.
+  RLE is great for calldata because it's often the case that there are
+  many repeated values (e.g. sequences of 0x00) in a given payload.   
+
+  decompress(0xffff) = 0x02ff
+  decompress(0xaabbbbcccccc) == 0x01aa02bb03cc
+  decompress(0x00000000000000000000) == 0x0a00"""
