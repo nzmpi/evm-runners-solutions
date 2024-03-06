@@ -1,5 +1,24 @@
-// this code returns the calldata minus the function signature (first 4 bytes) 
-// can you customize it to return the uncompressed calldata instead?
+/*
+ * This contract returns the incoming, compressed calldata minus the function
+ * signature. See the example below for a demonstration:
+ * 
+ * - input: [
+ *	0x5cd3f3a1 
+ *  0000000000000000000000000000000000000000000000000000000000000020 
+ *  0000000000000000000000000000000000000000000000000000000000000006
+ *  01aa02bb03cc0000000000000000000000000000000000000000000000000000
+ *  ]
+ * - output: [
+ *  0000000000000000000000000000000000000000000000000000000000000020
+ *  0000000000000000000000000000000000000000000000000000000000000006
+ *  01aa02bb03cc0000000000000000000000000000000000000000000000000000
+ *  ]
+ * 
+ * Check the ABI Specification to learn how calldata is encoded:
+ * https://docs.soliditylang.org/en/v0.8.16/abi-spec.html
+ *
+ * Can you customize it to return the uncompressed calldata instead?
+ */
 #define macro MAIN() = takes(0) returns(0) {
     0x04            // [0x04]
     calldatasize    // [calldatasize, 0x04]
