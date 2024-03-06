@@ -31,18 +31,31 @@ contract GasEaterTestBase is Test {
     function test_s01e06_sanity() public {
         // check gas usage
         uint256 gasBefore = gasleft();
-        gasEater.gasEater();
+        gasEater.eatGas();
         uint256 gasAfter = gasleft();
+        console2.log("Gas used for 'eatGas':", gasBefore - gasAfter - 5009);
+        assertEq(gasBefore - gasAfter - 5009, 719);
 
-        uint256 defaultGasUsage = 5009;
+        // check gas usage
+        gasBefore = gasleft();
+        gasEater.eatMoreGas();
+        gasAfter = gasleft();
+        console2.log("Gas used for 'eatMoreGas':", gasBefore - gasAfter - 503);
+        assertEq(gasBefore - gasAfter - 503, 65537);
 
-        console2.log("Gas used:", gasBefore - gasAfter - defaultGasUsage);
-        assertGt(gasBefore - gasAfter - defaultGasUsage, 0);
+        // check gas usage
+        gasBefore = gasleft();
+        gasEater.eatEvenMoreGas();
+        gasAfter = gasleft();
+        console2.log("Gas used for 'eatEvenMoreGas':", gasBefore - gasAfter - 500);
+        assertEq(gasBefore - gasAfter - 500, 15_485_863);
     }
 
     /// forge-config: default.fuzz.runs = 1
     function test_s01e06_gas(uint256 val) public {
-        gasEater.gasEater();
+        gasEater.eatGas();
+        gasEater.eatMoreGas();
+        gasEater.eatEvenMoreGas();
     }
 
     function test_s01e06_size() public {

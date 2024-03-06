@@ -1,5 +1,45 @@
-#define macro MAIN() = takes(0) returns(0) {
+// Interface
+#define function eatGas() nonpayable returns ()
+#define function eatMoreGas() nonpayable returns ()
+#define function eatEvenMoreGas() nonpayable returns ()
+
+#define macro EATGAS() = takes (0) returns (0) {
     // Store "Hello, World!" in memory
-    0x48656c6c6f2c20576f726c6421
-    0x00 mstore // ["Hello, World!"]
+    0x48656c6c6f2c20576f726c6421        // ["Hello, World!"]
+    0x00 mstore                         // []
+}
+
+#define macro EATMOREGAS() = takes (0) returns (0) {
+    // Store "Hello, World!" in memory
+    0x48656c6c6f2c20576f726c6421        // ["Hello, World!"]
+    0x00 mstore                         // []
+}
+
+#define macro EATEVENMOREGAS() = takes (0) returns (0) {
+    // Store "Hello, World!" in memory
+    0x48656c6c6f2c20576f726c6421        // ["Hello, World!"]
+    0x00 mstore                         // []
+}
+
+#define macro MAIN() = takes (0) returns (0) {
+    // Get the function signature from the calldata
+    0x00 calldataload        // [calldata @ 0x00]
+    0xE0 shr                 // [func_sig (calldata @ 0x00 >> 0xE0)]
+
+    dup1 __FUNC_SIG(eatGas)             eq eatGasJump           jumpi
+    dup1 __FUNC_SIG(eatMoreGas)         eq eatMoreGasJump       jumpi
+    dup1 __FUNC_SIG(eatEvenMoreGas)     eq eatEvenMoreGasJump   jumpi
+
+    // Revert if no function signature matched
+    0x00 0x00 revert
+
+    eatGasJump:
+        EATGAS()
+        0x20 0x00 return
+    eatMoreGasJump:
+        EATMOREGAS()
+        0x20 0x00 return
+    eatEvenMoreGasJump:
+        EATEVENMOREGAS()
+        0x20 0x00 return
 }

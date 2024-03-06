@@ -2,5 +2,7 @@
 pragma solidity 0.8.16;
 
 interface IGasEater {
-    function gasEater() external;
+    function eatGas() external;
+    function eatMoreGas() external;
+    function eatEvenMoreGas() external;
 }
