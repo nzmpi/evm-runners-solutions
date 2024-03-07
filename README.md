@@ -9,6 +9,8 @@ Foundry repository for evm-runners.
 3. Fibonacci
 4. Prime
 5. ArraySort
+6. GasEater
+7. Decompress
 
 ## Usage
 
