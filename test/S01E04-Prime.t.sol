@@ -53,7 +53,7 @@ contract PrimeTestBase is Test {
     }
 
     // checks if a number is prime
-    function _isPrime(uint256 number) public pure returns (bool) {
+    function _isPrime(uint256 number) internal pure returns (bool) {
         if (number < 2) {
             return false;
         }
