@@ -71,9 +71,13 @@ file = "S01E06-GasEater"
 contract = "GasEater"
 type = "n/a"
 description = """
-  Write a function/contract that consumes an exact amount of gas each
-  time it's called. Check the logs to track your gas usage.
-  The contract with the smallest code size wins."""
+  The task is to write a set of functions that consume an exact amount of 
+  gas each time they are called. Check the logs to track your gas usage.
+  The contract with the smallest code size wins.
+  
+  function eatGas() = 719 gas
+  function eatMoreGas() = 65537 gas
+  function eatEvenMoreGas() = 15_485_863 gas"""
 
 [[levels]]
 id = "7"
@@ -89,3 +93,17 @@ description = """
   decompress(0xffff) = 0x02ff
   decompress(0xaabbbbcccccc) == 0x01aa02bb03cc
   decompress(0x00000000000000000000) == 0x0a00"""
+
+[[levels]]
+id = "8"
+file = "S01E08-ModInv"
+contract = "ModInv"
+type = "ec math"
+description = """
+  Calculate the modular multiplicative inverse of a modulo m. Assume that
+  a and m are coprime, i.e. gcd(a, m) = 1. See function '_modInv' in 
+  S01E08-ModInv.t.sol for an example implementation using the extended
+  Euclidian algorithm. 
+
+  modInv(3, 11) == 4
+  modInv(3, 13) == 9"""
