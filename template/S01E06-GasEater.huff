@@ -4,18 +4,27 @@
 #define function eatEvenMoreGas() nonpayable returns ()
 
 #define macro EATGAS() = takes (0) returns (0) {
+    // Implement your solution here
+    // Feel free to remove the default Hello World code 
+
     // Store "Hello, World!" in memory
     0x48656c6c6f2c20576f726c6421        // ["Hello, World!"]
     0x00 mstore                         // []
 }
 
 #define macro EATMOREGAS() = takes (0) returns (0) {
+    // Implement your solution here
+    // Feel free to remove the default Hello World code 
+
     // Store "Hello, World!" in memory
     0x48656c6c6f2c20576f726c6421        // ["Hello, World!"]
     0x00 mstore                         // []
 }
 
 #define macro EATEVENMOREGAS() = takes (0) returns (0) {
+    // Implement your solution here
+    // Feel free to remove the default Hello World code 
+    
     // Store "Hello, World!" in memory
     0x48656c6c6f2c20576f726c6421        // ["Hello, World!"]
     0x00 mstore                         // []

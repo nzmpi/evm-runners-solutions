@@ -1,5 +1,9 @@
-// this is the addTwo example from https://docs.huff.sh/tutorial/the-basics/#add-two
-// can you customize it to return the average of the two numbers instead?
+/*
+ * This contract is the addTwo example from
+ * https://docs.huff.sh/tutorial/the-basics/#add-two
+ *
+ * Can you customize it to return the average of the two numbers instead?
+ */
 #define macro MAIN() = takes(0) returns(0) {
     0x04 calldataload     // [a]
     0x24 calldataload     // [b] 

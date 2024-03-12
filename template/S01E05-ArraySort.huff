@@ -1,6 +1,18 @@
+/*
+ * This contract returns the incoming, unsorted array.
+ * 
+ * Check the ABI Specification to learn how calldata is encoded:
+ * https://docs.soliditylang.org/en/v0.8.16/abi-spec.html
+ *
+ * Can you customize it to return the sorted array instead?
+ */
 #define macro MAIN() = takes(0) returns(0) {
-    0x24 calldataload     // [arrLength]
+    0x04                    // [0x04]
+    calldatasize            // [calldatasize, 0x04]
+    sub                     // [calldatasize - 0x04]
+    dup1                    // [calldatasize - 0x04, calldatasize - 0x04]
 
-    0x00 mstore           // place result in memory
-    0x20 0x00 return      // return the result
+    0x04 0x00 calldatacopy  // [calldatasize - 0x04]
+
+    0x00 return             // []   
 }
