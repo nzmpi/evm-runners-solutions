@@ -42,7 +42,7 @@ contract FibHashTestBase is Test {
         assertEq(_fibhash(x, k), fibhash.fibhash(x, k));
     }
 
-    function test_s01e02_gas(uint256 x, uint8 k) public view {
+    function test_s01e02_gas(uint256 x, uint8 k) public {
         vm.pauseGasMetering();
         vm.assume(k != 0);
         vm.resumeGasMetering();

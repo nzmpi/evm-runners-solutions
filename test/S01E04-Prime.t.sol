@@ -42,7 +42,7 @@ contract PrimeTestBase is Test {
         assertEq(_isPrime(n), prime.isPrime(n));
     }
 
-    function test_s01e04_gas(uint256 n) public view {
+    function test_s01e04_gas(uint256 n) public {
         vm.pauseGasMetering();
         vm.assume(n < 100_000);
         vm.resumeGasMetering();

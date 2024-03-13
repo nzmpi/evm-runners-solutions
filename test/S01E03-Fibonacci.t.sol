@@ -43,7 +43,7 @@ contract FibonacciTestBase is Test {
     }
 
     /// forge-config: default.fuzz.runs = 128
-    function test_s01e03_gas(uint256 n) public view {
+    function test_s01e03_gas(uint256 n) public {
         vm.pauseGasMetering();
         n = bound(n, 10_000, 11_000);
         vm.resumeGasMetering();

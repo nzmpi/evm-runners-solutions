@@ -40,7 +40,7 @@ contract AverageTestBase is Test {
         assertEq((a / 2) + (b / 2) + (a & b & 1), average.average(a, b));
     }
 
-    function test_s01e01_gas(uint256 a, uint256 b) public view {
+    function test_s01e01_gas(uint256 a, uint256 b) public {
         average.average(a, b);
     }
 
