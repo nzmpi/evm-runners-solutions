@@ -12,7 +12,7 @@ contract ModInvTestBase is Test {
     IModInv internal modInv;
 
     // prime number defining the finite field for secp256k1
-    uint256 constant p = 2**256 - 2**32 - 977; 
+    uint256 constant p = 2 ** 256 - 2 ** 32 - 977;
 
     function deploy() internal virtual returns (address addr) {
         // first: get the bytecode from the environment if it exists
@@ -51,16 +51,15 @@ contract ModInvTestBase is Test {
         // a and m must be coprime
         vm.assume(_gcd(a, m) == 1);
         vm.assume(m > a && m < 100_000_000 && a > 0 && m > 0);
-     
+
         vm.resumeGasMetering();
-        
+
         modInv.modInv(a, m);
     }
 
     function test_s01e08_size() public {
         console2.log("Contract size:", address(modInv).code.length);
-    } 
-
+    }
 
     /// @dev Calculates the modular multiplicative inverse of a modulo m.
     /// @dev source: https://github.com/witnet/elliptic-curve-solidity/
@@ -78,12 +77,12 @@ contract ModInvTestBase is Test {
 
             // convert negative number to positive by adding m
             (t, newT) = (newT, addmod(t, (m - mulmod(quotient, newT, m)), m));
-            
+
             (r, newR) = (newR, r - quotient * newR);
         }
 
         return t;
-    }    
+    }
 
     /// @dev Returns greatest common divisor of `x` and `y`.
     function _gcd(uint256 x, uint256 y) internal pure returns (uint256 z) {

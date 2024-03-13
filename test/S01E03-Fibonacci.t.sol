@@ -47,7 +47,7 @@ contract FibonacciTestBase is Test {
         vm.pauseGasMetering();
         n = bound(n, 10_000, 11_000);
         vm.resumeGasMetering();
-        
+
         fibonacci.fibonacci(n);
     }
 

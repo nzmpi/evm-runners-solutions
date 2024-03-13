@@ -46,7 +46,7 @@ contract FibHashTestBase is Test {
         vm.pauseGasMetering();
         vm.assume(k != 0);
         vm.resumeGasMetering();
-        
+
         fibhash.fibhash(x, k);
     }
 

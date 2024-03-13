@@ -46,7 +46,7 @@ contract PrimeTestBase is Test {
         vm.pauseGasMetering();
         vm.assume(n < 100_000);
         vm.resumeGasMetering();
-        
+
         prime.isPrime(n);
     }
 

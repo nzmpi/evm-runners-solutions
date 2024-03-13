@@ -11,5 +11,4 @@ contract ModInv is IModInv {
     function modInv(uint a, uint m) external pure returns (uint256) {
         return 0;
     }
-    
 }
