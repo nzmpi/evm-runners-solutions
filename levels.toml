@@ -100,10 +100,24 @@ file = "S01E08-ModInv"
 contract = "ModInv"
 type = "ec math"
 description = """
-  Calculate the modular multiplicative inverse of a modulo m. Assume that
-  a and m are coprime, i.e. gcd(a, m) = 1. See function '_modInv' in 
-  S01E08-ModInv.t.sol for an example implementation using the extended
-  Euclidian algorithm. 
+  Calculate the modular multiplicative inverse: a × b ≡ 1 (mod m). 
+  Assume that a and m are coprime (gcd(a,m) = 1), so an inverse exists. 
+  See function '_modInv' in S01E08-ModInv.t.sol for an example 
+  implementation using the extended Euclidian algorithm. 
 
+  modInv(a, m) == b
   modInv(3, 11) == 4
   modInv(3, 13) == 9"""
+
+[[levels]]
+id = "9"
+file = "S01E09-EcAdd"
+contract = "EcAdd"
+type = "ec math"
+description = """
+  Perform elliptic curve addition on the secp256k1 curve used in Ethereum.
+  Assume that P = (x_p, y_p) and Q = (x_q, y_q) lie on the curve. See
+  function '_ecAdd' in S01E09-EcAdd.t.sol for an example implementation.
+  Hint: Make use of your solution from the previous level 'modInv'.   
+  
+  ecAdd(P, Q) == R"""
