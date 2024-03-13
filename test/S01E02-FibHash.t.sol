@@ -43,8 +43,10 @@ contract FibHashTestBase is Test {
     }
 
     function test_s01e02_gas(uint256 x, uint8 k) public view {
+        vm.pauseGasMetering();
         vm.assume(k != 0);
-
+        vm.resumeGasMetering();
+        
         fibhash.fibhash(x, k);
     }
 

@@ -43,7 +43,10 @@ contract PrimeTestBase is Test {
     }
 
     function test_s01e04_gas(uint256 n) public view {
+        vm.pauseGasMetering();
         vm.assume(n < 100_000);
+        vm.resumeGasMetering();
+        
         prime.isPrime(n);
     }
 

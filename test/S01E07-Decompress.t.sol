@@ -44,8 +44,12 @@ contract DecompressTestBase is Test {
     }
 
     function test_s01e07_gas(bytes memory payload) public {
+        vm.pauseGasMetering();
         vm.assume(payload.length == 32);
-        decompress.decompress(_compress(payload));
+        bytes memory compressed = _compress(payload);
+        vm.resumeGasMetering();
+
+        decompress.decompress(compressed);
     }
 
     function test_s01e07_size() public {

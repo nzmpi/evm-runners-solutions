@@ -11,6 +11,9 @@ import "src/interfaces/IModInv.sol";
 contract ModInvTestBase is Test {
     IModInv internal modInv;
 
+    // prime number defining the finite field for secp256k1
+    uint256 constant p = 2**256 - 2**32 - 977; 
+
     function deploy() internal virtual returns (address addr) {
         // first: get the bytecode from the environment if it exists
         bytes memory empty = new bytes(0);
@@ -31,8 +34,7 @@ contract ModInvTestBase is Test {
     function test_s01e08_sanity() public {
         assertEq(modInv.modInv(3, 11), 4);
         assertEq(modInv.modInv(3, 13), 9);
-        // secp256k1 prime
-        assertEq(modInv.modInv(3, 2**256 - 2**32 - 977), _modInv(3, 2**256 - 2**32 - 977));
+        assertEq(modInv.modInv(3, p), _modInv(3, p));
     }
 
     function test_s01e08_fuzz(uint256 a, uint256 m) public {
@@ -44,10 +46,14 @@ contract ModInvTestBase is Test {
     }
 
     function test_s01e08_gas(uint256 a, uint256 m) public {
+        vm.pauseGasMetering();
+
         // a and m must be coprime
         vm.assume(_gcd(a, m) == 1);
         vm.assume(m > a && m < 100_000_000 && a > 0 && m > 0);
      
+        vm.resumeGasMetering();
+        
         modInv.modInv(a, m);
     }
 

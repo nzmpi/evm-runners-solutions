@@ -57,12 +57,16 @@ contract ArraySortTestBase is Test {
     }
 
     function test_s01e05_gas(uint256 length) public {
+        vm.pauseGasMetering();
+
         length = bound(length, 16, 20);
 
         uint256[] memory arr = new uint256[](length);
         for (uint256 i = 0; i < length; i++) {
             arr[i] = uint256(keccak256(abi.encodePacked(block.timestamp, i))) % 2 ** 16;
         }
+
+        vm.resumeGasMetering();
 
         arraySort.arraySort(arr);
     }
