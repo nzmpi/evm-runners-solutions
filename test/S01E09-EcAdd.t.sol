@@ -56,17 +56,8 @@ contract EcAddTestBase is Test {
         // get public keys (points on the secp256k1 curve)
         Vm.Wallet memory walletP = vm.createWallet(uint256(keccak256(x)));
         Vm.Wallet memory walletQ = vm.createWallet(uint256(keccak256(y)));
-        uint256 x_p = walletP.publicKeyX;
-        uint256 y_p = walletP.publicKeyY;
-        uint256 x_q = walletQ.publicKeyX;
-        uint256 y_q = walletQ.publicKeyY;
-
-        // since Ethereum uses secp256k1, we can assume that the public keys are on the curve
-        // but we still check it to be sure
-        vm.assume(_isOnCurve([x_p, y_p]) && _isOnCurve([x_q, y_q]));
-
-        uint256[2] memory P = [x_p, y_p];
-        uint256[2] memory Q = [x_q, y_q];
+        uint256[2] memory P = [walletP.publicKeyX, walletP.publicKeyY];
+        uint256[2] memory Q = [walletQ.publicKeyX, walletQ.publicKeyY];
 
         uint256[2] memory result = _ecAdd(P, Q);
         uint256[2] memory userResult = ecAdd.ecAdd(P, Q);
@@ -81,24 +72,15 @@ contract EcAddTestBase is Test {
         // get public keys (points on the secp256k1 curve)
         Vm.Wallet memory walletP = vm.createWallet(uint256(keccak256(x)));
         Vm.Wallet memory walletQ = vm.createWallet(uint256(keccak256(y)));
-        uint256 x_p = walletP.publicKeyX;
-        uint256 y_p = walletP.publicKeyY;
-        uint256 x_q = walletQ.publicKeyX;
-        uint256 y_q = walletQ.publicKeyY;
-
-        // since Ethereum uses secp256k1, we can assume that the public keys are on the curve
-        // but we still check it to be sure
-        vm.assume(_isOnCurve([x_p, y_p]) && _isOnCurve([x_q, y_q]));
-
-        uint256[2] memory P = [x_p, y_p];
-        uint256[2] memory Q = [x_q, y_q];
+        uint256[2] memory P = [walletP.publicKeyX, walletP.publicKeyY];
+        uint256[2] memory Q = [walletQ.publicKeyX, walletQ.publicKeyY];
 
         vm.resumeGasMetering();
 
         ecAdd.ecAdd(P, Q);
     }
 
-    function test_s01e08_size() public {
+    function test_s01e09_size() public {
         console2.log("Contract size:", address(ecAdd).code.length);
     }
 
@@ -106,7 +88,7 @@ contract EcAddTestBase is Test {
     /// @param P The point P = (x_p, y_p).
     /// @param Q The point Q = (x_q, y_q).
     /// @return R The resulting point R = P + Q.
-    function _ecAdd(uint256[2] memory P, uint256[2] memory Q) public pure returns (uint256[2] memory R) {
+    function _ecAdd(uint256[2] memory P, uint256[2] memory Q) internal pure returns (uint256[2] memory R) {
         // if P is the point at infinity return Q
         if (P[0] == 0 && P[1] == 0) return Q;
         // if Q is the point at infinity return P
@@ -134,23 +116,6 @@ contract EcAddTestBase is Test {
         uint256 y_r = addmod(mulmod(m, addmod(x_p, p - x_r, p), p), p - y_p, p);
 
         return [x_r, y_r];
-    }
-
-    /// @dev Checks if a point is on the secp256k1 curve (y^2 = x^3 + 7 mod p)
-    /// @param P The point P = (x, y).
-    /// @return True if the point is on the curve.
-    function _isOnCurve(uint256[2] memory P) internal pure returns (bool) {
-        // check if P is within the field range
-        if (P[0] > p || P[1] > p) return false;
-
-        // Calculate the left-hand side (lhs) of the equation y^2
-        uint256 lhs = mulmod(P[1], P[1], p);
-
-        // Calculate the right-hand side (rhs) of the equation x^3 + 7
-        uint256 rhs = addmod(mulmod(mulmod(P[0], P[0], p), P[0], p), 7, p);
-
-        // Check if the point satisfies the curve equation
-        return lhs == rhs;
     }
 
     /// @dev Calculates the modular multiplicative inverse of a modulo m.
