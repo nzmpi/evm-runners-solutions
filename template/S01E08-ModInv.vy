@@ -3,6 +3,7 @@
 @external
 def modInv(a: uint256, m: uint256) -> uint256:
     """
+    @notice Returns the modular multiplicative inverse of a modulo m.
     @dev See function `_modInv` in S01E08-ModInv.t.sol for an example implementation
     @param a The number to find the inverse for.
     @param m The modulus.

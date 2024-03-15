@@ -2,5 +2,7 @@
 pragma solidity 0.8.16;
 
 interface IArraySort {
-    function arraySort(uint256[] memory a) external returns (uint256[] memory);
+    /// @notice Returns the input array sorted in ascending order
+    /// @param arr The array to be sorted
+    function arraySort(uint256[] memory arr) external returns (uint256[] memory);
 }

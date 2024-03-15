@@ -4,10 +4,7 @@ pragma solidity 0.8.16;
 import "src/interfaces/IFibHash.sol";
 
 contract FibHash is IFibHash {
-    /// @notice Implementation of the fibonacci hash algorithm
-    /// @dev See function `_fibhash` in S01E02-FibHash.t.sol for an example implementation
-    /// @param x The number to hash
-    /// @param k The size of the resulting hash table: 2^k
+    /// @dev See {IFibHash-fibhash}.
     function fibhash(uint256 x, uint8 k) public pure returns (uint256) {
         return 0;
     }
