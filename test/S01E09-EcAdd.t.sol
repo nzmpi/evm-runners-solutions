@@ -31,7 +31,7 @@ contract EcAddTestBase is Test {
         ecAdd = IEcAdd(deploy());
     }
 
-    function test_s01e08_sanity() public {
+    function test_s01e09_sanity() public {
         Vm.Wallet memory walletP = vm.createWallet(uint256(keccak256(bytes("1"))));
         uint256 x = walletP.publicKeyX;
         uint256 y = walletP.publicKeyY;
@@ -52,7 +52,7 @@ contract EcAddTestBase is Test {
         assertEq(userResult[1], 0);
     }
 
-    function test_s01e08_fuzz(bytes memory x, bytes memory y) public {
+    function test_s01e09_fuzz(bytes memory x, bytes memory y) public {
         // get public keys (points on the secp256k1 curve)
         Vm.Wallet memory walletP = vm.createWallet(uint256(keccak256(x)));
         Vm.Wallet memory walletQ = vm.createWallet(uint256(keccak256(y)));
@@ -75,7 +75,7 @@ contract EcAddTestBase is Test {
         assertEq(result[1], userResult[1]);
     }
 
-    function test_s01e08_gas(bytes memory x, bytes memory y) public {
+    function test_s01e09_gas(bytes memory x, bytes memory y) public {
         vm.pauseGasMetering();
 
         // get public keys (points on the secp256k1 curve)
