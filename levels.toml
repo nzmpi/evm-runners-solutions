@@ -100,7 +100,7 @@ file = "S01E08-ModInv"
 contract = "ModInv"
 type = "ec math"
 description = """
-  Calculate the modular multiplicative inverse: a × b ≡ 1 (mod m). 
+  Calculate the modular multiplicative inverse: a × b ≡ 1 (mod m).         
   Assume that a and m are coprime (gcd(a,m) = 1), so an inverse exists. 
   See function '_modInv' in S01E08-ModInv.t.sol for an example 
   implementation using the extended Euclidian algorithm. 
@@ -121,3 +121,17 @@ description = """
   Hint: Make use of your solution from the previous level 'modInv'.   
   
   ecAdd(P, Q) == R"""
+
+[[levels]]
+id = "10"
+file = "S01E10-EcMul"
+contract = "EcMul"
+type = "ec math"
+description = """
+  Implement scalar multiplication on the secp256k1 curve used in Ethereum.
+  Elliptic curve multiplication can be visualized as repeatedly adding a 
+  point to itself: k*P = P + ... + P (k times). It is used to generate
+  public keys from a private key. Hint: The double-and-add method is an  
+  efficient way to perform this operation. 
+
+  ecMul(P, k) == R""" 
