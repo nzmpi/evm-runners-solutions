@@ -49,7 +49,7 @@ contract EcMulTestBase is Test {
         assertEq(userResult[1], G[1]);
     }
 
-    /// forge-config: default.fuzz.runs = 10
+    /// forge-config: default.fuzz.runs = 16
     function test_s01e10_fuzz(bytes memory x) public {
         vm.pauseGasMetering();
 
@@ -68,7 +68,7 @@ contract EcMulTestBase is Test {
         assertEq(P[1], userResult[1]);
     }
 
-    /// forge-config: default.fuzz.runs = 10
+    /// forge-config: default.fuzz.runs = 16
     function test_s01e10_gas(bytes memory x) public {
         vm.pauseGasMetering();
 
