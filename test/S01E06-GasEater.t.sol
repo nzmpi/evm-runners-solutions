@@ -34,21 +34,36 @@ contract GasEaterTestBase is Test {
         gasEater.eatGas();
         uint256 gasAfter = gasleft();
         console2.log("Gas used for 'eatGas':", gasBefore - gasAfter - 5009);
-        assertEq(gasBefore - gasAfter - 5009, 719);
+        console2.log("Gas target for 'eatGas':", uint256(719));
+        int256 gasMismatch = int256(gasBefore) - int256(gasAfter) - int256(5009) - int256(719);
+        console2.log("Gas missmatch:", gasMismatch);
+        assertEq(gasMismatch, 0);
+
+        // empty line
+        console2.log("");
 
         // check gas usage
         gasBefore = gasleft();
         gasEater.eatMoreGas();
         gasAfter = gasleft();
         console2.log("Gas used for 'eatMoreGas':", gasBefore - gasAfter - 503);
-        assertEq(gasBefore - gasAfter - 503, 65537);
+        console2.log("Gas target for 'eatMoreGas':", uint256(65537));
+        gasMismatch = int256(gasBefore) - int256(gasAfter) - int256(503) - int256(65537);
+        console2.log("Gas missmatch:", gasMismatch);
+        assertEq(gasMismatch, 0);
+
+        // empty line
+        console2.log("");
 
         // check gas usage
         gasBefore = gasleft();
         gasEater.eatEvenMoreGas();
         gasAfter = gasleft();
         console2.log("Gas used for 'eatEvenMoreGas':", gasBefore - gasAfter - 500);
-        assertEq(gasBefore - gasAfter - 500, 15_485_863);
+        console2.log("Gas target for 'eatEvenMoreGas':", uint256(15_485_863));
+        gasMismatch = int256(gasBefore) - int256(gasAfter) - int256(500) - int256(15_485_863);
+        console2.log("Gas missmatch:", gasMismatch);
+        assertEq(gasMismatch, 0);
     }
 
     /// forge-config: default.fuzz.runs = 1
