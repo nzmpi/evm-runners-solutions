@@ -95,6 +95,9 @@ contract GasEaterTestBase is Test {
         }
     }
 
+    /// forge-config: default.fuzz.runs = 1
+    function test_s01e06_fuzz(uint256 val) public {}
+
     function test_s01e06_size() public {
         console2.log("Contract size:", address(gasEater).code.length);
     }
