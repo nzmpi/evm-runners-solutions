@@ -71,9 +71,9 @@ file = "S01E06-GasEater"
 contract = "GasEater"
 type = "n/a"
 description = """
-  The task is to write a set of functions that consume an exact amount of 
-  gas each time they are called. Check the logs to track your gas usage.
-  The contract with the smallest code size wins.
+  Implement a set of functions that consume an exact amount of gas each 
+  time they are called. The contract with the smallest code size wins.
+  Learn about the gas costs of opcodes by visiting https://evm.codes
   
   function eatGas() = 719 gas
   function eatMoreGas() = 65537 gas

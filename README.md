@@ -11,6 +11,9 @@ Foundry repository for evm-runners.
 5. ArraySort
 6. GasEater
 7. Decompress
+8. ModInv
+9. EcAdd
+10. EcMul
 
 ## Usage
 
