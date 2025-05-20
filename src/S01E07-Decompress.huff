@@ -1,0 +1,61 @@
+/*
+ * This contract returns the incoming, compressed calldata minus the function
+ * signature. See the example below for a demonstration:
+ * 
+ * - input: [
+ *	0x5cd3f3a1 
+ *  0000000000000000000000000000000000000000000000000000000000000020 
+ *  0000000000000000000000000000000000000000000000000000000000000006
+ *  01aa02bb03cc0000000000000000000000000000000000000000000000000000
+ *  ]
+ * - output: [
+ *  0000000000000000000000000000000000000000000000000000000000000020
+ *  0000000000000000000000000000000000000000000000000000000000000006
+ *  01aa02bb03cc0000000000000000000000000000000000000000000000000000
+ *  ]
+ * 
+ * Check the ABI Specification to learn how calldata is encoded:
+ * https://docs.soliditylang.org/en/v0.8.16/abi-spec.html
+ *
+ * Can you customize it to return the uncompressed calldata instead?
+ */
+#define macro MAIN() = takes(0) returns(0) {
+    0x01                         // [1]
+    0x24 calldataload            // [n = input_length, 1]
+    dup1 iszero empty_dest jumpi // [n, 1]
+    sub                          // [n - 1]
+    0x20 push0 mstore            // [n - 1]
+
+    push0 0x40 push0             // [i = 0, m_offset = 64, count = 0, n - 1]
+    while1_dest:
+        dup1 dup5 lt continue_while1_dest jumpi // [i, m_offset, count, n - 1]
+        dup1 0x44 add dup1                      // [i + 68, i + 68, i, m_offset, count, n - 1]
+        calldataload 0xf8 shr                   // [amount = arr[i], i + 68, i, m_offset, count, n - 1]
+        swap1 0x01 add calldataload 0xf8 shr    // [symbol = arr[i + 1], amount, i, m_offset, count, n - 1]
+        swap4 dup2 add swap3                    // [m_offset, amount, i, count + amount, symbol, n - 1]
+        0x01 swap1 swap2 sub                    // [amount - 1, m_offset, i, count + amount, symbol, n - 1]
+        
+        swap1 push0              // [j = 0, m_offset, amount - 1, i, count + amount, symbol, n - 1]
+        while2_dest:
+            dup1 dup4 lt continue_while2_dest jumpi // [j, m_offset, amount - 1, i, count + amount, symbol, n - 1]
+            dup6 dup3 mstore8    // [j, m_offset, amount - 1, i, count + amount, symbol, n - 1]
+            0x01 add             // [j + 1, m_offset, amount - 1, i, count + amount, symbol, n - 1]
+            swap1 0x01 add swap1 // [j + 1, m_offset + 1, amount - 1, i, count + amount, symbol, n - 1]
+            while2_dest jump
+
+        continue_while2_dest:
+            pop swap4 pop pop swap1 swap2 swap1 // [i, m_offset + j, count + amount, n - 1]
+            0x02 add                            // [i + 2, m_offset + j, count + amount, n - 1]
+        while1_dest jump 
+
+    continue_while1_dest:
+        dup3 0x20 mstore // [i, m_offset, count, n - 1]
+        dup3 0x40 add    // [count + 64, m_offset, count, n - 1]
+        end_dest jump
+
+    empty_dest:
+        0x20
+
+    end_dest:
+        push0 return       
+}
