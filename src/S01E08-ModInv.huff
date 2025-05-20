@@ -1,0 +1,25 @@
+/*
+ * This contract adds two numbers and returns the result
+ *
+ * Can you implement the modinv function instead?
+ */
+#define macro MAIN() = takes(0) returns(0) {
+    0x24 calldataload                 // [m] 
+
+    push0 0x01 dup3 0x04 calldataload // [r2 = a, r1 = m, t2 = 1, t1 = 0, m]
+    while_dest:
+        dup1 iszero end_dest jumpi // [r2, r1, t2, t1, m]
+        dup1 dup3 div swap2        // [r1, r2, q = r1 / r2,  t2, t1, m]
+        dup3 dup3 mul swap1 sub    // [r1 - r2 * q, r2, q, t2, t1, m]
+        dup6 dup5 dup5 mulmod      // [mulmod(q, t2, m), r1 - r2 * q, r2, q, t2, t1, m]
+        dup7 sub                   // [m - mulmod(q, t2, m), r1 - r2 * q, r2, q, t2, t1, m]
+        dup7 swap1 dup7 addmod     // [addmod(t1, m - mulmod(q, t2, m), m), r1 - r2 * q, r2, q, t2, t1, m]
+        swap4 swap5 pop            // [r1 - r2 * q, r2, q, addmod(..), t2, m]
+        swap2 pop swap1            // [r1 - q * r2, r2, addmod(..), t2, m]
+        while_dest jump
+
+    end_dest:
+        swap3 // [t1, r1, t2, r2, m]
+        0x00 mstore
+        0x20 0x00 return  
+}
