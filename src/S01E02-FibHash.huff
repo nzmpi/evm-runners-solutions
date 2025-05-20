@@ -1,0 +1,14 @@
+/*
+ * This contract adds two numbers and returns the result
+ *
+ * Can you customize it to implement the fibonacci hash function?
+ */
+#define macro MAIN() = takes(0) returns(0) {
+    0x9e3779b97f4a7c15f39cc0605cedc8341082276bf3a27251f86c6a11d0c18e95 // [a]
+    0x04 calldataload mul                                              // [x * a] 
+    0x24 calldataload                                                  // [k, x * a] 
+    0x100 sub                                                          // [256 - k, x * a]
+    shr                                                                // [x * a >> (256 - k)]
+    0x00 mstore                                                        // place res in memory
+    0x20 0x00 return                                                   // return the result
+}
