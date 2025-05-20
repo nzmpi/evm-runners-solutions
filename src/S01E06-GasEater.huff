@@ -1,0 +1,36 @@
+// Interface
+#define function eatGas() nonpayable returns ()
+#define function eatMoreGas() nonpayable returns ()
+#define function eatEvenMoreGas() nonpayable returns ()
+
+#define macro EATGAS() = takes (0) returns (0) {
+    0x25 0x01 log0 address
+}
+
+#define macro EATMOREGAS() = takes (0) returns (0) {
+    0x1f5c 0x01 log0
+}
+
+#define macro EATEVENMOREGAS() = takes (0) returns (0) {
+    0x15d51a push0 log0
+}
+
+#define macro MAIN() = takes (0) returns (0) {
+    // Get the function signature from the calldata
+    0x00 calldataload        // [calldata @ 0x00]
+    0xE0 shr                 // [func_sig (calldata @ 0x00 >> 0xE0)]
+
+    dup1 __FUNC_SIG(eatGas)             eq eatGasJump           jumpi
+    dup1 __FUNC_SIG(eatMoreGas)         eq eatMoreGasJump       jumpi
+    __FUNC_SIG(eatEvenMoreGas)          eq eatEvenMoreGasJump   jumpi
+
+    eatGasJump:
+        EATGAS()
+        stop
+    eatMoreGasJump:
+        EATMOREGAS()
+        stop
+    eatEvenMoreGasJump:
+        EATEVENMOREGAS()
+        stop
+}
