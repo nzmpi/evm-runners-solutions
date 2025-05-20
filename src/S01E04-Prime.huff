@@ -1,0 +1,31 @@
+/*
+ * This contract returns value 'n' from calldata.
+ *
+ * Can you customize it to return true if n is prime?
+ */
+#define macro MAIN() = takes(0) returns(0) {
+    0x04 calldataload             // [n]
+    0x02 dup2 lt false_dest jumpi // [n]
+    0x02 dup2 eq true_dest jumpi  // [n]
+    0x03 dup2 eq true_dest jumpi  // [n]
+    0x02                          // [i = 2, n]
+    
+    while_dest:
+        dup1 dup1 mul           // [i * i, i, n]
+        dup3 lt true_dest jumpi // [i, n]
+        dup1 dup3 mod iszero    // [n % i == 0, i, n]
+        false_dest jumpi        // [i, n]
+        0x01 add                // [i + 1, n]
+        while_dest jump
+
+    true_dest:
+        0x01
+        end_dest jump
+
+    false_dest:
+        push0
+    
+    end_dest:
+        0x00 mstore           // place res in memory
+        0x20 0x00 return      // return res
+}
