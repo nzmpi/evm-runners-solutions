@@ -1,0 +1,46 @@
+/*
+ * This contract returns the incoming, unsorted array.
+ * 
+ * Check the ABI Specification to learn how calldata is encoded:
+ * https://docs.soliditylang.org/en/v0.8.16/abi-spec.html
+ *
+ * Can you customize it to return the sorted array instead?
+ */
+#define macro MAIN() = takes(0) returns(0) {
+    0x04 calldatasize sub dup1  // [calldatasize - 4, calldatasize - 4]
+    0x04 push0 calldatacopy     // [calldatasize - 4]
+    0x02 0x20 mload sub         // [n = size - 2, calldatasize - 4]
+    push0                       // [i = 0, n, calldatasize - 4]
+
+    while1_dest:
+        dup1 dup3 lt end_dest jumpi  // [i, n, calldatasize - 4]
+
+        push0 push0                  // [j = 0, flag = 0, i, n, calldatasize - 4]
+        while2_dest:
+            dup1 dup4 dup6 sub lt continue_while1_dest jumpi // [j, flag, i, n, calldatasize - 4]
+
+            0x40 0x20 dup3 mul add dup1               // [j * 32 + 64, j * 32 + 64, j, flag, i, n, calldatasize - 4]
+            0x20 add dup1 dup3                        // [j * 32 + 64, j * 32 + 96, j * 32 + 96, j * 32 + 64, j, flag, i, n, calldatasize - 4]
+            mload swap1 mload                         // [arr[j + 1], arr[j], j * 32 + 96, j * 32 + 64, j, flag, i, n, calldatasize - 4]
+            dup1 dup3 gt swap_dest jumpi              // [arr[j + 1], arr[j], j * 32 + 96, j * 32 + 64, j, flag, i, n, calldatasize - 4]
+            pop pop pop pop continue_while2_dest jump // [j, flag, i, n, calldatasize - 4]
+
+            swap_dest:
+                swap2 mstore swap1 mstore // [j, flag, i, n, calldatasize - 4]
+                0x01 swap2 pop            // [j, flag = true, i, n, calldatasize - 4]
+
+            continue_while2_dest:
+                0x01 add          // [j + 1, flag, i, n, calldatasize - 4]
+                while2_dest jump
+        
+        continue_while1_dest:
+        pop // [flag, i, n, calldatasize - 4] 
+        iszero end_dest jumpi // [i, n, calldatasize - 4]
+
+        0x01 add // [i + 1, n, calldatasize - 4]
+        while1_dest jump
+
+    end_dest:
+        swap2 // [calldatasize - 4, i, n]
+        push0 return  
+}
