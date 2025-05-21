@@ -1,0 +1,63 @@
+#define constant prime = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
+
+#define macro MAIN() = takes(0) returns(0) {
+    0x04 calldataload       // [Px] 
+    0x24 calldataload       // [Py, Px]
+    0x44 calldataload       // [Qx, Py, Px]
+    0x64 calldataload       // [Qy, Qx, Py, Px]
+
+    dup4 iszero dup4 iszero and // [Px == 0 && Py == 0, Qy, Qx, Py, Px]
+    return_Q_dest jumpi // [Qy, Qx, Py, Px]
+    dup2 iszero dup2 iszero and // [Qx == 0 && Qy == 0, Qy, Qx, Py, Px]
+    return_P_dest jumpi // [Qy, Qx, Py, Px]
+    dup1 [prime] sub dup4 eq dup3 dup6 eq dup1 swap2 and // [Py == p - Qy && Px == Qx, Px == Qx, Qy, Qx, Py, Px]
+    end_dest jumpi // [Px == Qx, Qy, Qx, Py, Px]
+
+    dup2 dup5 eq and // [Py == Qy && Px == Qx, Qy, Qx, Py, Px]
+    double_dest jumpi // [Qy, Qx, Py, Px]
+
+    [prime] dup5 dup2 sub dup4 addmod _modInv() // [_modInv(addmod(Qx, p - Px, p)), Qy, Qx, Py, Px]
+    [prime] swap1 dup2 dup6 dup2 sub dup5 addmod // [addmod(Qy, p - Py, p), _modInv(..), p, Qy, Qx, Py, Px]
+    mulmod // [m = mulmod(addmod(..), _modInv(..), p), Qy, Qx, Py, Px]
+    res_dest jump
+
+    double_dest:
+        [prime] dup1 dup5 0x02 mulmod _modInv() // [_modInv(mulmod(2, Py, p)), p, Qy, Qx, Py, Px]
+        dup2 dup1 dup8 dup1 mulmod // [mulmod(Px, Px, p), p, _modInv(..), p, Qy, Qx, Py, Px]
+        0x03 mulmod mulmod // [m = mulmod(mulmod(3, mulmod(Px, Px, p), p), _modInv(..), p), Qy, Qx, Py, Px]
+
+    res_dest:
+        [prime] dup4 dup2 sub dup2 dup8 dup2 sub  // [p - Px, p, p - Qx, p, m, Qy, Qx, Py, Px]
+        dup2 dup6 dup1 mulmod addmod // [addmod(addmod(mulmod(m, m, p), p - Px, p), p - Qx, p), m, Qy, Qx, Py, Px]
+        [prime] dup6 dup2 sub dup2 dup1 dup5 dup2 sub // [p - addmod(..), p, p, p - Py, p, addmod(..), m, Qy, Qx, Py, Px]
+        dup11 addmod dup6 mulmod addmod addmod // [addmod(mulmod(m, addmod(Px, p - addmod(..), p), p), p - Py, p), addmod(..), m, Qy, Qx, Py, Px]
+
+    return_Q_dest:
+        0x20 mstore push0 mstore
+        end_dest jump    
+
+    return_P_dest:
+        pop pop // [Py, Px]
+        0x20 mstore push0 mstore
+
+    end_dest:
+        0x40 0x00 return
+}
+
+#define macro _modInv() = takes(1) returns(1) {
+    // [a]
+    push0 0x01 [prime] dup1 swap4 // [r2 = a, r1 = prime, t2 = 1, t1 = 0, m = prime]
+    while_dest:
+        dup1 iszero end_dest jumpi // [r2, r1, t2, t1, m]
+        dup1 dup3 div swap2        // [r1, r2, q = r1 / r2,  t2, t1, m]
+        dup3 dup3 mul swap1 sub    // [r1 - r2 * q, r2, q, t2, t1, m]
+        dup6 dup5 dup5 mulmod      // [mulmod(q, t2, m), r1 - r2 * q, r2, q, t2, t1, m]
+        dup7 sub                   // [m - mulmod(q, t2, m), r1 - r2 * q, r2, q, t2, t1, m]
+        dup7 swap1 dup7 addmod     // [addmod(t1, m - mulmod(q, t2, m), m), r1 - r2 * q, r2, q, t2, t1, m]
+        swap4 swap5 pop            // [r1 - r2 * q, r2, q, addmod(..), t2, m]
+        swap2 pop swap1            // [r1 - q * r2, r2, addmod(..), t2, m]
+        while_dest jump
+
+    end_dest:
+        swap3 // [t1, r1, t2, r2, m]
+}
